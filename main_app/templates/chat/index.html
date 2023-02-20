@@ -3,39 +3,43 @@
 {% block content %}
 
 <body>
-  <div class="title-bar">
-    <h1>{{name}}</h1>
-  </div>
-  <div class="chatroom-box">
-    {% for chatroom in chatrooms %}
-      <div class="img-card">
-        <div class="img-container"><img class="chatroom-pic" src="{{chatroom.chat_pic}}"/>
-        </div>
-          <span>Chatroom name: {{chatroom.room_name}}</span>
-        <div>
-
-          <a href="{% url 'chatroom_delete' chatroom.id %}">Delete</a>
-        </div>
+ <button style='width:200px;height:70px;font-size:20px;margin-top:20vh;'   id='add-room' class="accordion-button collapsed" type="button" data-bs-toggle="modal" data-bs-target="#emojis">createroom</button>
+ <!-- Modal Add room  -->
+<div class="modal fade addRoom" id="emojis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div  class="modal-dialog modal-dialog-centered" role="document">
+    <div class='modal-content'>
+ <div class='modal-card'>
+    <h1 id='modal-tilte'>Add Room</h1>
+    <div id='modal-image-container'>
+    </div>
+    <div class="create-chatroom-box">
+      <form
+        action="{% url 'create_room' %}"
+        enctype="multipart/form-data"
+        method="post"
+        class="create-chatroom-form"
+        
+      >
+        {% csrf_token %}
+        <label class="custom-file-upload">
+          <input type="file" id="photo-button" name="photo-file" />
+          Add a Profile Picture:
+      </label>
+        
+        {{ chatroom_form.as_p }}
+        <div class='button-container'>
+        <input type="submit" value="Save" class="btn-create-room" />
+     
+        <button type="button" class="btn-cancel" data-dismiss="modal" aria-label="Close">
+          Cancel
+        </button>
       </div>
-    {% endfor %}
+      </form>
+    </div> 
+   </div> 
+  </div> 
   </div>
-    <!-- What chat room would you like to enter?<br>
-    <input id="room-name-input" type="text" size="100"><br>
-    <input id="room-name-submit" type="button" value="Enter"> -->
-
-    <!-- <script>
-        document.querySelector('#room-name-input').focus();
-        document.querySelector('#room-name-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#room-name-submit').click();
-            }
-        };
-
-        document.querySelector('#room-name-submit').onclick = function(e) {
-            var roomName = document.querySelector('#room-name-input').value;
-            window.location.pathname = '/chat/' + roomName + '/';
-        };
-    </script> -->
+</div>
 </body>
 
 {% endblock %}
