@@ -3,6 +3,17 @@
 {% block content %}
 
 <body>
+  <div style='display:flex;flex-direction:column;'>
+  {% for chatroom in chatroomsmain %}
+  <div>
+    <a  style='color:black;font-size:10px;' onclick={switchChat()} href='/chat/{{chatroom.id}}'>
+      <img style='width:50px;' src="{{chatroom.chat_pic}}" />
+     {{chatroom.room_name}}
+    </a>
+  </div>
+
+  {% endfor %}
+</div>
  <button style='width:200px;height:70px;font-size:20px;margin-top:20vh;'   id='add-room' class="accordion-button collapsed" type="button" data-bs-toggle="modal" data-bs-target="#emojis">createroom</button>
  <!-- Modal Add room  -->
 <div class="modal fade addRoom" id="emojis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

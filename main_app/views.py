@@ -176,6 +176,7 @@ def bubble(request):
 @login_required
 def lobby(request):
     chatrooms = Chatroom.objects.filter(host=request.user.id)
+    chatroomsmain = Chatroom.objects.all()
 
     if request.method == "POST":
         chatroom_form = ChatroomForm(request.POST)
@@ -205,6 +206,7 @@ def lobby(request):
 
     return render(request, 'chat/index.html', {
         'chatrooms': chatrooms,
+        'chatroomsmain':chatroomsmain,
         'name': 'Your Chatrooms',
         'chatroom_form': chatroom_form,
     })
